@@ -13,7 +13,14 @@ class JokeViewModel : ViewModel() {
     val jokeLive = MutableLiveData<Joke>()
 
     init {
+        fetchJoke()
+    }
 
+    fun refreshJoke() {
+        fetchJoke()
+    }
+
+    private fun fetchJoke() {
         JokeApi.jokeService.getRandomJoke().enqueue(object : Callback<Joke> {
 
             override fun onResponse(call: Call<Joke>, response: Response<Joke>) {
@@ -31,19 +38,19 @@ class JokeViewModel : ViewModel() {
                     } else {
 
 
-//                        Snackbar.make(binding.root, "Ma'lumotni olishda xatolik yuz berdi", Snackbar.LENGTH_SHORT).show()
+    //                        Snackbar.make(binding.root, "Ma'lumotni olishda xatolik yuz berdi", Snackbar.LENGTH_SHORT).show()
                     }
 
                 } else {
-//                    Snackbar.make(binding.root, "Ma'lumotni olishda xatolik yuz berdi", Snackbar.LENGTH_SHORT).show()
+    //                    Snackbar.make(binding.root, "Ma'lumotni olishda xatolik yuz berdi", Snackbar.LENGTH_SHORT).show()
                 }
 
             }
 
             override fun onFailure(call: Call<Joke>, t: Throwable) {
 
-//                Log.d(TAG, "onFailure: sldkf")
-//                Snackbar.make(binding.root, "Requestni jo'natishda xatolik", Snackbar.LENGTH_SHORT).show()
+    //                Log.d(TAG, "onFailure: sldkf")
+    //                Snackbar.make(binding.root, "Requestni jo'natishda xatolik", Snackbar.LENGTH_SHORT).show()
             }
         })
     }

@@ -28,5 +28,12 @@ class JokeActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.nextRandomJokeBtn.setOnClickListener {
+
+            viewModel.refreshJoke()
+
+
+        }
+
     }
 }
