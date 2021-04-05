@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import uz.najottalim.dasturchiafandi.database.JokeDatabase
 import uz.najottalim.dasturchiafandi.databinding.ActivityMainBinding
+import uz.najottalim.dasturchiafandi.model.Joke
 import uz.najottalim.dasturchiafandi.viewmodel.JokeViewModel
 
 class JokeActivity : AppCompatActivity() {
@@ -16,7 +18,17 @@ class JokeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(JokeViewModel::class.java)
+        val jokeDatabase = JokeDatabase.getInstance(applicationContext)
+
+        val jokeDao = jokeDatabase.jokeDao()
+
+        val viewModelFactory = JokeViewModel.JokeViewModelFactory(
+            jokeDao = jokeDao
+        )
+
+        viewModel = JokeViewModel(jokeDao)
+
+        viewModel = ViewModelProvider(this, viewModelFactory).get(JokeViewModel::class.java)
 
         viewModel.jokeLive.observe(this, Observer { jokeLive ->
 
